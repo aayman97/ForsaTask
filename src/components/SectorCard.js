@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import MainText from "./MainText";
 import R from "../resources/R";
 
-const SectorCard = ({ item, index, selectedSector, setSelectedSector, setItemWidths }) => {
+const SectorCard = ({ item, index, selectedSector, setSelectedSector, setItemWidths, lang }) => {
   return (
     <TouchableOpacity
       onLayout={(event) => {
@@ -15,7 +15,7 @@ const SectorCard = ({ item, index, selectedSector, setSelectedSector, setItemWid
         setSelectedSector(index);
       }}
     >
-      <MainText color={selectedSector === index ? "white" : "black"}>{item.label ? item.label : item}</MainText>
+      <MainText color={selectedSector === index ? "white" : "black"}>{item.label}</MainText>
     </TouchableOpacity>
   );
 };

@@ -7,10 +7,16 @@ import OffersScreen from "../screens/OffersScreen";
 import TabsIcon from "../components/TabsIcon";
 import { DiscountTabNotActiveIcon, HomeTabActiveIcon, HomeTabNotActiveIcon, TagTabActiveIcon, UserTabNotActiveIcon } from "../resources/assets/SVGs";
 import { Platform } from "react-native";
+import { useSelector } from "react-redux";
+import { strings } from "../localization";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
+  const lang = useSelector((state) => {
+    return state.settingReducer.lang;
+  });
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -31,7 +37,7 @@ const BottomTabNavigator = () => {
                 focused={focused}
                 inActiveIcon={<HomeTabNotActiveIcon width={22} height={22} />}
                 activeIcon={<HomeTabActiveIcon width={22} height={22} />}
-                label={"Home"}
+                label={strings[lang].all.Home}
               />
             );
           },
@@ -48,7 +54,7 @@ const BottomTabNavigator = () => {
                 focused={focused}
                 inActiveIcon={<TagTabActiveIcon width={22} height={22} />}
                 activeIcon={<TagTabActiveIcon width={22} height={22} />}
-                label={"Retail"}
+                label={strings[lang].all.Retail}
               />
             );
           },
@@ -65,7 +71,7 @@ const BottomTabNavigator = () => {
                 focused={focused}
                 inActiveIcon={<DiscountTabNotActiveIcon width={22} height={22} />}
                 activeIcon={<DiscountTabNotActiveIcon width={22} height={22} />}
-                label={"Offers"}
+                label={strings[lang].all.Offers}
               />
             );
           },
@@ -82,7 +88,7 @@ const BottomTabNavigator = () => {
                 focused={focused}
                 inActiveIcon={<UserTabNotActiveIcon width={22} height={22} />}
                 activeIcon={<UserTabNotActiveIcon width={22} height={22} />}
-                label={"Profile"}
+                label={strings[lang].all.Profile}
               />
             );
           },

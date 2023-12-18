@@ -2,20 +2,26 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { HeartIcon, LogoIcon, RingIcon, SearchIcon } from "../resources/assets/SVGs";
 import R from "../resources/R";
+import MainText from "./MainText";
 
-const Header = () => {
+const Header = ({ showLogo = true, title, showSearch = true }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginTop: !showLogo && 20 }]}>
       <TouchableOpacity
         style={{
           width: 50,
         }}
       >
-        <SearchIcon width={20.5} height={20.5} />
+        {showSearch && <SearchIcon width={20.5} height={20.5} />}
       </TouchableOpacity>
 
       <View>
-        <LogoIcon width={35.57} height={62.38} />
+        {showLogo && <LogoIcon width={35.57} height={62.38} />}
+        {title && !showLogo && (
+          <MainText color={"white"} size={24}>
+            {title}
+          </MainText>
+        )}
       </View>
 
       <View style={styles.rightContainer}>

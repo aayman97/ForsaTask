@@ -4,12 +4,10 @@ import R from "../resources/R";
 import { ThreeArrows } from "../resources/assets/SVGs";
 
 const { width } = Dimensions.get("screen");
-const BackgroundWrapper = ({ children, top = "-35%" }) => {
+const BackgroundWrapper = ({ children, top = "-35%", showArrows = true }) => {
   return (
     <SafeAreaView style={{ flex: 1, paddingTop: Platform.OS === "android" && 40 }}>
-      <View style={styles.threeArrowsContainer}>
-        <ThreeArrows />
-      </View>
+      <View style={styles.threeArrowsContainer}>{showArrows && <ThreeArrows />}</View>
       <View style={[styles.largeCircle, { top }]} />
 
       <View style={styles.childrenContainer}>

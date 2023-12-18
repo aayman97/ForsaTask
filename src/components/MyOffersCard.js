@@ -4,7 +4,7 @@ import MainText from "./MainText";
 import R from "../resources/R";
 import { HeartIcon } from "../resources/assets/SVGs";
 
-const MyOffersCard = ({ item }) => {
+const MyOffersCard = ({ item, lang }) => {
   return (
     <TouchableOpacity style={styles.offersCard}>
       <View style={{ width: "100%", height: "50%" }}>
@@ -14,7 +14,7 @@ const MyOffersCard = ({ item }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.detailsContainer}>
-        <MainText color={R.colors.gray}>{item.brand.sector.title}</MainText>
+        <MainText color={R.colors.gray}>{lang === "en" ? item.brand.sector.title : item.brand.sector.title_ar}</MainText>
         <MainText bold={true} size={16}>
           {item.brand.title}
         </MainText>

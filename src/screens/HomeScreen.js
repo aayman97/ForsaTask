@@ -14,6 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import BrandCard from "../components/BrandCard";
 import MyServicesTypesCard from "../components/MyServicesTypesCard";
 import MyOffersCard from "../components/MyOffersCard";
+import { useSelector } from "react-redux";
+import { strings } from "../localization";
 
 const { width } = Dimensions.get("screen");
 
@@ -44,7 +46,7 @@ const offersDummySection = [
   },
 ];
 
-const OffersAds = () => {
+const OffersAds = ({ lang }) => {
   const flatListRef = React.useRef(null);
 
   const scrollX = React.useRef(new Animated.Value(0));
@@ -77,6 +79,7 @@ const OffersAds = () => {
     >
       <Animated.FlatList
         ref={flatListRef}
+        inverted={lang === "en" ? false : true}
         data={offersDummySection}
         keyExtractor={(item, index) => item.color}
         style={{
@@ -89,7 +92,7 @@ const OffersAds = () => {
         showsHorizontalScrollIndicator={false}
         bounces={false}
         renderItem={({ item, index }) => {
-          return <FirstSectionCard item={item} />;
+          return <FirstSectionCard item={item} lang={lang} />;
         }}
       />
     </View>
@@ -106,11 +109,19 @@ const HomeScreen = () => {
 
   const sectorFlatlistRef = React.createRef(null);
 
+  const lang = useSelector((state) => {
+    return state.settingReducer.lang;
+  });
+
+  const changeFlexDirection = () => {
+    return { flexDirection: lang === "en" ? "row" : "row-reverse" };
+  };
+
   useEffect(() => {
     axios.get(_baseUrls.staging + endPoints.mySectors).then(
       (res) => {
         // console.log(res.data.results);
-        setSectors(["All", ...res.data.results]);
+        setSectors([{ label: "All" }, ...res.data.results]);
       },
       (err) => {
         console.log(err);
@@ -183,17 +194,17 @@ const HomeScreen = () => {
   return (
     <BackgroundWrapper>
       <Header />
-      <OfferAlert />
+      <OfferAlert lang={lang} />
 
-      <OffersAds />
-      <View style={styles.textAndViewAllContainer}>
+      <OffersAds lang={lang} />
+      <View style={[styles.textAndViewAllContainer, changeFlexDirection()]}>
         <MainText bold={true} size={18}>
-          Top brands in retail
+          {strings[lang].all.Topbrands}
         </MainText>
 
         <TouchableOpacity>
           <MainText bold={false} size={12}>
-            View all
+            {strings[lang].all.Viewall}
           </MainText>
         </TouchableOpacity>
       </View>
@@ -206,6 +217,7 @@ const HomeScreen = () => {
         {sectors && (
           <FlatList
             ref={sectorFlatlistRef}
+            inverted={lang === "en" ? false : true}
             data={sectors}
             horizontal
             keyExtractor={(item, index) => item.value}
@@ -218,6 +230,7 @@ const HomeScreen = () => {
                   selectedSector={selectedSector}
                   setSelectedSector={setSelectedSector}
                   setItemWidths={setItemWidths}
+                  lang={lang}
                 />
               );
             }}
@@ -235,23 +248,24 @@ const HomeScreen = () => {
           <FlatList
             data={brands}
             horizontal
+            inverted={lang === "en" ? false : true}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => item?.id}
             renderItem={({ item, index }) => {
-              return <BrandCard item={item} index={index} />;
+              return <BrandCard item={item} index={index} lang={lang} />;
             }}
           />
         )}
       </View>
 
-      <View style={styles.textAndViewAllContainer}>
+      <View style={[styles.textAndViewAllContainer, changeFlexDirection()]}>
         <MainText bold={true} size={18}>
-          Request Additional Loan
+          {strings[lang].all.RequestAdditionalLoan}
         </MainText>
 
         <TouchableOpacity>
           <MainText bold={false} size={18}>
-            See less
+            {strings[lang].all.Seeless}
           </MainText>
         </TouchableOpacity>
       </View>
@@ -272,7 +286,7 @@ const HomeScreen = () => {
               {myservicetypes &&
                 myservicetypes.map((item, index) => {
                   if (index % 2 === 0) {
-                    return <MyServicesTypesCard key={item.id} item={item} index={index} length={myservicetypes.length} />;
+                    return <MyServicesTypesCard key={item.id} item={item} index={index} length={myservicetypes.length} lang={lang} />;
                   }
                 })}
             </View>
@@ -281,7 +295,7 @@ const HomeScreen = () => {
               {myservicetypes &&
                 myservicetypes.map((item, index) => {
                   if (index % 2 !== 0) {
-                    return <MyServicesTypesCard key={item.id} item={item} index={index} length={myservicetypes.length} />;
+                    return <MyServicesTypesCard key={item.id} item={item} index={index} length={myservicetypes.length} lang={lang} />;
                   }
                 })}
             </View>
@@ -289,14 +303,14 @@ const HomeScreen = () => {
         </ScrollView>
       </View>
 
-      <View style={styles.textAndViewAllContainer}>
+      <View style={[styles.textAndViewAllContainer, changeFlexDirection()]}>
         <MainText bold={true} size={18}>
-          Offers Select for You
+          {strings[lang].all.OfferSelect}
         </MainText>
 
         <TouchableOpacity>
           <MainText bold={false} size={18}>
-            See All
+            {strings[lang].all.SeeAll}
           </MainText>
         </TouchableOpacity>
       </View>
@@ -306,7 +320,7 @@ const HomeScreen = () => {
           <View style={[styles.separator, { alignItems: "center" }]}>
             {myOffers.map((item, index) => {
               if (index % 2 === 0) {
-                return <MyOffersCard item={item} />;
+                return <MyOffersCard item={item} lang={lang} />;
               }
             })}
           </View>
@@ -314,7 +328,7 @@ const HomeScreen = () => {
           <View style={styles.separator}>
             {myOffers.map((item, index) => {
               if (index % 2 !== 0) {
-                return <MyOffersCard item={item} />;
+                return <MyOffersCard item={item} lang={lang} />;
               }
             })}
           </View>
@@ -327,8 +341,8 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   textAndViewAllContainer: {
     width: "100%",
-    marginTop: 10,
-    flexDirection: "row",
+    marginTop: 12,
+
     justifyContent: "space-between",
     alignItems: "flex-end",
   },

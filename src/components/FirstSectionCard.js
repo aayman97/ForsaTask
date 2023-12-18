@@ -5,10 +5,10 @@ import { ArrowRightIcon } from "../resources/assets/SVGs";
 
 const { width } = Dimensions.get("screen");
 
-const FirstSectionCard = ({ item }) => {
+const FirstSectionCard = ({ item, lang }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.wrapper}>
+      <TouchableOpacity style={[styles.wrapper]}>
         <Image
           source={item.thumbnail}
           style={{
@@ -17,7 +17,7 @@ const FirstSectionCard = ({ item }) => {
             height: "100%",
           }}
         />
-        <View style={styles.logoAndTextContainer}>
+        <View style={[styles.logoAndTextContainer, { flexDirection: lang === "en" ? "row" : "row-reverse" }]}>
           <View style={styles.logoWrapper}>
             <Image source={item.logo} />
           </View>
@@ -26,13 +26,27 @@ const FirstSectionCard = ({ item }) => {
             bold={true}
             size={16}
             style={{
-              marginLeft: 10,
+              marginLeft: lang === "en" ? 10 : 0,
+              marginRight: lang === "en" ? 0 : 10,
             }}
           >
             {item.description}
           </MainText>
 
-          <View style={styles.arrowContainer}>
+          <View
+            style={[
+              styles.arrowContainer,
+              {
+                transform: [
+                  {
+                    scaleX: lang === "en" ? 1 : -1,
+                  },
+                ],
+                marginLeft: lang === "en" ? 5 : 0,
+                marginRight: lang === "en" ? 0 : 5,
+              },
+            ]}
+          >
             <ArrowRightIcon />
           </View>
         </View>
@@ -54,7 +68,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "row",
+
     overflow: "hidden",
   },
   logoAndTextContainer: {
@@ -65,7 +79,6 @@ const styles = StyleSheet.create({
     left: 0,
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "row",
   },
   logoWrapper: {
     width: 73,
@@ -75,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  arrowContainer: { marginLeft: 5, alignItems: "center", justifyContent: "center" },
+  arrowContainer: { alignItems: "center", justifyContent: "center" },
 });
 
 export default FirstSectionCard;

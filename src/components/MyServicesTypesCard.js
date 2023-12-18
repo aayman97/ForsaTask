@@ -10,7 +10,7 @@ const gradientList = [
   ["#12252D", "#203B44", "#294E5D"],
 ];
 
-const MyServicesTypesCard = ({ item, index, length }) => {
+const MyServicesTypesCard = ({ item, index, length, lang }) => {
   return (
     <TouchableOpacity>
       <LinearGradient
@@ -25,7 +25,7 @@ const MyServicesTypesCard = ({ item, index, length }) => {
           y: 1,
         }}
       >
-        <MainText color={"white"}>{item.name}</MainText>
+        <MainText color={"white"}>{lang === "en" ? item.name : item.name_ar}</MainText>
       </LinearGradient>
     </TouchableOpacity>
   );

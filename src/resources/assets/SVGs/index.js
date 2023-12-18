@@ -4,6 +4,7 @@ import HeartIcon from "./heart-icon.svg";
 import RingIcon from "./ring-icon.svg";
 import WritingIcon from "./writing-icon.svg";
 import ArrowRightIcon from "./arrow-right-icon.svg";
+import ArrowDownIcon from "./arrow-down-icon.svg";
 
 import HomeTabActiveIcon from "./home-tab-active-icon.svg";
 import HomeTabNotActiveIcon from "./home-tab-notActive-icon.svg";
@@ -27,6 +28,7 @@ export {
   TagTabActiveIcon,
   DiscountTabNotActiveIcon,
   UserTabNotActiveIcon,
+  ArrowDownIcon,
 
   // NOT_ICONS
   ThreeArrows,

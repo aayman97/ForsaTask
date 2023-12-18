@@ -3,9 +3,18 @@ import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import MainText from "./MainText";
 import R from "../resources/R";
 
-const BrandCard = ({ item, index }) => {
+const BrandCard = ({ item, index, lang }) => {
   return (
-    <TouchableOpacity style={[styles.container, { marginLeft: index !== 0 ? 10 : 0, backgroundColor: "white" }]}>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        {
+          marginLeft: lang === "en" ? (index !== 0 ? 10 : 0) : 0,
+          marginRight: lang !== "en" ? (index !== 0 ? 10 : 0) : 0,
+          backgroundColor: "white",
+        },
+      ]}
+    >
       {!item.thumbnail && (
         <MainText
           style={{

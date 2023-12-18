@@ -3,10 +3,11 @@ import { StyleSheet, View } from "react-native";
 import R from "../resources/R";
 import { WritingIcon } from "../resources/assets/SVGs";
 import MainText from "./MainText";
+import { strings } from "../localization";
 
-const OfferAlert = () => {
+const OfferAlert = ({ lang }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { flexDirection: lang === "en" ? "row" : "row-reverse" }]}>
       <WritingIcon />
       <View
         style={{
@@ -15,10 +16,10 @@ const OfferAlert = () => {
         }}
       >
         <MainText color={R.colors.gold} size={16} fontWeight={400} bold={true}>
-          Get your limit
+          {strings[lang].all.Getyourlimit}
         </MainText>
         <MainText color={R.colors.gold} size={12} fontWeight={400} bold={false}>
-          Complete your infoand get up to EGP 100,000
+          {strings[lang].all.CompleteInfo}
         </MainText>
       </View>
     </View>
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     alignItems: "center",
-    flexDirection: "row",
+
     gap: 10,
   },
 });
