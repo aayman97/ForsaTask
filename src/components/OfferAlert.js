@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import R from "../resources/R";
-import { WritingIcon } from "../resources/SVGs";
+import { WritingIcon } from "../resources/assets/SVGs";
 import MainText from "./MainText";
 
 const OfferAlert = () => {

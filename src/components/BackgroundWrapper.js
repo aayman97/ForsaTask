@@ -1,18 +1,20 @@
 import React from "react";
-import { Dimensions, SafeAreaView, StyleSheet, View } from "react-native";
+import { Dimensions, Platform, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import R from "../resources/R";
-import { ThreeArrows } from "../resources/SVGs";
+import { ThreeArrows } from "../resources/assets/SVGs";
 
 const { width } = Dimensions.get("screen");
 const BackgroundWrapper = ({ children, top = "-35%" }) => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, paddingTop: Platform.OS === "android" && 40 }}>
       <View style={styles.threeArrowsContainer}>
         <ThreeArrows />
       </View>
       <View style={[styles.largeCircle, { top }]} />
 
-      <View style={styles.childrenContainer}>{children}</View>
+      <View style={styles.childrenContainer}>
+        <ScrollView>{children}</ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     paddingHorizontal: 20,
+    zIndex: 100,
   },
 });
 

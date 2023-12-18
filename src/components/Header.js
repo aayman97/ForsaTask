@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { HeartIcon, LogoIcon, RingIcon, SearchIcon } from "../resources/SVGs";
+import { HeartIcon, LogoIcon, RingIcon, SearchIcon } from "../resources/assets/SVGs";
 import R from "../resources/R";
 
 const Header = () => {
